@@ -35,7 +35,11 @@ return 0;
 
 int genComputerMove(void){
 	//generate a random number and mod it with 3 to get the value of the computer move (1== paper, 2== scissors, 3==rock)
-	return rand()%3;
+	int move = rand() % 3;
+	while (move == 0){
+		move = rand() % 3;
+	}
+	return move;
 }
 
 
