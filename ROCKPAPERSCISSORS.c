@@ -10,9 +10,12 @@
 #include <stdlib.h>
 using namespace std;
 
+enum move {Paper, Scissors, Rock};
+
 int genComputerMove(void);
 string generateWinner(int Player, int Computer);
 int getPlayerMove(void);
+string convert(int move);
 
 
 int main() {
@@ -22,12 +25,13 @@ int main() {
 		cout<<"Round #"<< i+1 << endl;
 		PlayerMove = getPlayerMove();
 		ComputerMove = genComputerMove();
-		cout<<"You played [" << PlayerMove <<"]"<< endl;
-		cout<<"The computer played ["<< ComputerMove <<"]"<<endl;
+		cout<<"You played [" << convert(PlayerMove) <<"]"<< endl;
+		cout<<"The computer played ["<< convert(ComputerMove) <<"]"<<endl;
 		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl <<endl;
 	}
 return 0;
 }
+
 
 int getPlayerMove(void){
 	int pmove;
@@ -51,6 +55,23 @@ int genComputerMove(void){
 	return move;
 }
 
+string convert(int move){
+	string item;
+	switch(move){
+		case 1:
+			item ="Paper";
+			break;
+		case 2:
+			item = "Scissor";
+			break;
+		case 3:
+			item = "Rock";
+			break;
+		default:
+			item = "Error";
+	}
+	return item;
+}
 
 string generateWinner(int Player, int Computer){
 	string Winner;
