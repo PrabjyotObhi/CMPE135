@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <cstring>
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
@@ -16,22 +17,40 @@ int genComputerMove(void);
 string generateWinner(int Player, int Computer);
 int getPlayerMove(void);
 string convert(int move);
+void scoreBoard(string winner, int* position);
 
 
 int main() {
 	int PlayerMove;
 	int ComputerMove;
+	int track[3] = {0};
 	for (int i=0; i<20; i++){
 		cout<<"Round #"<< i+1 << endl;
 		PlayerMove = getPlayerMove();
 		ComputerMove = genComputerMove();
 		cout<<"You played [" << convert(PlayerMove) <<"]"<< endl;
 		cout<<"The computer played ["<< convert(ComputerMove) <<"]"<<endl;
-		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl <<endl;
+		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl;
+		scoreBoard(generateWinner(PlayerMove, ComputerMove), track);
+		cout << track[0]<<"        "<<track[1]<<"        "<<track[2]<<endl;
+
 	}
 return 0;
 }
 
+
+void scoreBoard(string winner, int* position){
+	if (winner == "Player"){
+		position[0]= position[0]+1;
+	}
+	else if(winner == "Computer"){
+		position[1]= position[1]+1;
+	}
+	else{
+		position[2]= position[2]+1;;
+	}
+
+}
 
 int getPlayerMove(void){
 	int pmove;
