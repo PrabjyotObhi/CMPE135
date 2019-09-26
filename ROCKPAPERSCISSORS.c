@@ -9,28 +9,37 @@
 #include <iostream>
 #include <stdlib.h>
 using namespace std;
+
 int genComputerMove(void);
 string generateWinner(int Player, int Computer);
+int getPlayerMove(void);
+
 
 int main() {
 	int PlayerMove;
 	int ComputerMove;
 	for (int i=0; i<20; i++){
 		cout<<"Round #"<< i+1 << endl;
-		cout<< "Please enter 1 for paper, 2 for scissors, or 3 for rock:"<<endl;
-		cin>>PlayerMove;
-
-		//Makes sure the move is valid for our set of values
-		while (!(PlayerMove>=1 && PlayerMove<= 3)){
-			cout<< "Invalid Move, Please try again"<<endl;
-			cin>>PlayerMove;
-		}
+		PlayerMove = getPlayerMove();
 		ComputerMove = genComputerMove();
 		cout<<"You played [" << PlayerMove <<"]"<< endl;
 		cout<<"The computer played ["<< ComputerMove <<"]"<<endl;
 		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl <<endl;
 	}
 return 0;
+}
+
+int getPlayerMove(void){
+	int pmove;
+	cout<< "Please enter 1 for paper, 2 for scissors, or 3 for rock:"<<endl;
+	cin>>pmove;
+
+	//Makes sure the move is valid for our set of values
+	while (!(pmove>=1 && pmove<= 3)){
+		cout<< "Invalid Move, Please try again"<<endl;
+		cin>>pmove;
+	}
+	return pmove;
 }
 
 int genComputerMove(void){
