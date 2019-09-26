@@ -19,9 +19,14 @@ int getPlayerMove(void);
 string convert(int move);
 void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
-
+void RockPaperScissor();
 
 int main() {
+	RockPaperScissor();
+	return 0;
+}
+
+void RockPaperScissor(){
 	int PlayerMove;
 	int ComputerMove;
 	int track[3] = {0};
@@ -34,9 +39,7 @@ int main() {
 		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl<<endl;
 		scoreBoard(generateWinner(PlayerMove, ComputerMove), track);
 		printScoreBoard(track, 3);
-
 	}
-return 0;
 }
 
 void printScoreBoard(int* arr, int size){
