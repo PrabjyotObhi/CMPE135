@@ -18,6 +18,7 @@ string generateWinner(int Player, int Computer);
 int getPlayerMove(void);
 string convert(int move);
 void scoreBoard(string winner, int* position);
+void printScoreBoard(int* arr, int size);
 
 
 int main() {
@@ -30,15 +31,21 @@ int main() {
 		ComputerMove = genComputerMove();
 		cout<<"You played [" << convert(PlayerMove) <<"]"<< endl;
 		cout<<"The computer played ["<< convert(ComputerMove) <<"]"<<endl;
-		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl;
+		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl<<endl;
 		scoreBoard(generateWinner(PlayerMove, ComputerMove), track);
-		cout << track[0]<<"        "<<track[1]<<"        "<<track[2]<<endl;
+		printScoreBoard(track, 3);
 
 	}
 return 0;
 }
 
-
+void printScoreBoard(int* arr, int size){
+	cout<<"Player           Computer            Tie"<<endl;
+	for (int i =0; i<size; i++){
+		cout<< "  "<<arr[i]<<"               ";
+	}
+	cout << endl<< endl;
+}
 void scoreBoard(string winner, int* position){
 	if (winner == "Player"){
 		position[0]= position[0]+1;
