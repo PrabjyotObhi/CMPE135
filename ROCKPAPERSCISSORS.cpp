@@ -8,12 +8,14 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include <cstring>
+#include "Player.h"
+#include <string>
+// #include "Round.h"
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
 
-int genComputerMove(void);
+int getComputerMove(void);
 string generateWinner(int Player, int Computer);
 int getPlayerMove(void);
 string convert(int move);
@@ -27,17 +29,24 @@ int main() {
 }
 
 void RockPaperScissor(){
-	int PlayerMove;
-	int ComputerMove;
+	// int PlayerMove;
+	// int ComputerMove;
+
+	Player *player = new Player();
+	Player *computer = new Player();
+
+	// Scoreboard
 	int track[3] = {0};
-	for (int i=0; i<20; i++){
-		cout<<"Round #"<< i+1 << endl;
-		PlayerMove = getPlayerMove();
-		ComputerMove = genComputerMove();
-		cout<<"You played [" << convert(PlayerMove) <<"]"<< endl;
-		cout<<"The computer played ["<< convert(ComputerMove) <<"]"<<endl;
-		cout<<"The winner is ["<< (generateWinner(PlayerMove, ComputerMove)) <<"]"<< endl<<endl;
-		scoreBoard(generateWinner(PlayerMove, ComputerMove), track);
+
+	for (int i = 0; i < 20; i++) {
+		cout << "Round #" << i + 1 << endl;
+		
+		player->setChoice(getPlayerMove());
+		computer->setChoice(getComputerMove());
+		cout << "You played [" << convert(player->getMove()) << "]" << endl;
+		cout << "The computer played [" << convert(computer->getMove()) << "]" << endl;
+		cout << "The winner is [" << (generateWinner(player->getMove(), computer->getMove())) << "]" << endl <<endl;
+		scoreBoard(generateWinner(player->getMove(), computer->getMove()), track);
 		printScoreBoard(track, 3);
 	}
 }
@@ -75,7 +84,7 @@ int getPlayerMove(void){
 	return pmove;
 }
 
-int genComputerMove(void){
+int getComputerMove(void){
 	//generate a random number and mod it with 3 to get the value of the computer move (1== paper, 2== scissors, 3==rock)
 	int move = rand() % 4;
 	while (move == 0){
