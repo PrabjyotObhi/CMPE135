@@ -9,14 +9,15 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
-#include "Player.h"
+#include "Computer.h"
+#include "Human.h"
 #include "Round.h"
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
 
-int getComputerMove(void);
-int getPlayerMove(void);
+// int getComputerMove(void);
+// int getPlayerMove(void);
 string convert(int move);
 void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
@@ -27,10 +28,10 @@ int main() {
 	return 0;
 }
 
-void RockPaperScissor(){
+void RockPaperScissor() {
 
-	Player *player = new Player();
-	Player *computer = new Player();
+	Human *player = new Human();
+	Computer *computer = new Computer();
 	Round *newRound = new Round();
 
 	// Scoreboard
@@ -38,8 +39,8 @@ void RockPaperScissor(){
 
 	for (int i = 0; i < 20; i++) {
 		cout << "Round #" << i + 1 << endl;
-		player->setMove(getPlayerMove());
-		computer->setMove(getComputerMove());
+		player->setMove();
+		computer->setMove();
 		cout << "You played [" << convert(player->getMove()) << "]" << endl;
 		cout << "The computer played [" << convert(computer->getMove()) << "]" << endl;
 		newRound->setWinner(newRound->detWinner(player->getMove(), computer->getMove()));
@@ -70,27 +71,13 @@ void scoreBoard(string winner, int* position){
 
 }
 
-int getPlayerMove(void){
-	int pmove;
-	cout<< "Please enter 1 for paper, 2 for scissors, or 3 for rock:"<<endl;
-	cin>>pmove;
+// int getPlayerMove(void){
 
-	//Makes sure the move is valid for our set of values
-	while (!(pmove>=1 && pmove<= 3)){
-		cout<< "Invalid Move, Please try again"<<endl;
-		cin>>pmove;
-	}
-	return pmove;
-}
+// }
 
-int getComputerMove(void){
-	//generate a random number and mod it with 3 to get the value of the computer move (1== paper, 2== scissors, 3==rock)
-	int move = rand() % 4;
-	while (move == 0){
-		move = rand() % 4;
-	}
-	return move;
-}
+// int getComputerMove(void){
+	
+// }
 
 string convert(int move){
 	string item;
