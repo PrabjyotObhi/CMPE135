@@ -10,7 +10,7 @@ class Player{
             m_score = score; 
         }
 
-        void setChoice(int move) {
+        void setMove(int move) {
             m_move = move;
         }
 
