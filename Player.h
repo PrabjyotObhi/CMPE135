@@ -1,3 +1,7 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+// Abstract class Player
 class Player{
     public:
         // Default constructor
@@ -10,9 +14,7 @@ class Player{
             m_score = score; 
         }
 
-        void setMove(int move) {
-            m_move = move;
-        }
+        virtual void setMove() = 0;
 
         // Getters
         int getScore() {
@@ -24,8 +26,11 @@ class Player{
         }
 
         // Destructor (note: make virtual if making subclasses)
-        ~Player();
+        virtual ~Player() {};
     private:
         int m_score;
+    protected:
         int m_move;
 };
+
+#endif
