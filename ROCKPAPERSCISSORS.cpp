@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : ROCKPAPERSCISSORS.cpp
-// Author      : Prabjyot Obhi
+// Author      : Prabjyot Obhi, Raymond Chen, Derrick Lien, Gaurav Kuppa
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
@@ -16,8 +16,6 @@ using namespace std;
 
 enum move {Paper, Scissors, Rock};
 
-// int getComputerMove(void);
-// int getPlayerMove(void);
 string convert(int move);
 void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
@@ -70,14 +68,6 @@ void scoreBoard(string winner, int* position){
 	}
 
 }
-
-// int getPlayerMove(void){
-
-// }
-
-// int getComputerMove(void){
-	
-// }
 
 string convert(int move){
 	string item;
