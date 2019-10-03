@@ -20,13 +20,37 @@ string convert(int move);
 void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
 void RockPaperScissor();
+// void RockPaperScissor(char mode); TODO: add mode parameter
 
-int main() {
-	RockPaperScissor();
+int main(int argc, char *argv[]) {
+	if (argc == 1) {
+		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
+	}
+	else if (argc == 2) {
+		string arg = argv[1];
+
+		if (arg == "-r") {
+			cout << "Computer utilizing random algorithm!" << endl;
+			RockPaperScissor();
+		}
+		else if (arg == "-m") {
+			cout << "Computer utilizing machine learning algorithm!" << endl;
+		}
+		else {
+			cout << "Invalid argument. Valid arguments are \"r\" for random, \"m\" for ML." << endl;
+		}
+	}
+	else {
+		cout << "Invalid number of command line arguments. Please try again." << endl;
+		cout << "Valid arguments are \"r\" for random, \"m\" for ML." << endl;
+	}
+
 	return 0;
 }
 
 void RockPaperScissor() {
+
+	// TODO: Implement different computer player depending on game mode selected (random or ML)
 
 	Human *player = new Human();
 	Computer *computer = new Computer();
