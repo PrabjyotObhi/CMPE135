@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 #include <string>
 #include "Computer.h"
@@ -21,8 +22,10 @@ void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
 void RockPaperScissor();
 // void RockPaperScissor(char mode); TODO: add mode parameter
+void writeFreq(double a, double b, double c);
 
 int main(int argc, char *argv[]) {
+	
 	if (argc == 1) {
 		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
 	}
@@ -109,4 +112,12 @@ string convert(int move){
 			item = "Error";
 	}
 	return item;
+}
+
+void writeFreq(double a, double b, double c) {
+	ofstream freqfile;
+
+	freqfile.open("freqfile.txt");
+	freqfile << a << " " << b << " " << c << endl;
+	freqfile.close();
 }
