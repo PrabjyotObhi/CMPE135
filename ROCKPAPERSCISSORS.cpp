@@ -7,11 +7,13 @@
 //============================================================================
 
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 #include <string>
 #include "Computer.h"
 #include "Human.h"
 #include "Round.h"
+#include <vector>
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
@@ -21,8 +23,17 @@ void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
 void RockPaperScissor();
 // void RockPaperScissor(char mode); TODO: add mode parameter
+void writeFreq(const vector<string> &sequence, const vector<int> &frequency);
+void readFreq(vector<string> &sequence, vector<int> &frequency);
 
 int main(int argc, char *argv[]) {
+	
+	vector<string> moveSequence; // vector of strings to hold past move sequences
+	vector<int> freq; // vector of ints to hold frequencies of each sequence
+
+	// Read in sequences and their frequencies from the text file
+	readFreq(moveSequence, freq);
+
 	if (argc == 1) {
 		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
 	}
@@ -109,4 +120,61 @@ string convert(int move){
 			item = "Error";
 	}
 	return item;
+}
+
+void writeFreq(const vector<string> &sequence, const vector<int> &frequency) {
+	ofstream freqfile;
+
+	size_t size = sequence.size();
+	// cout << "sequence size = " << size << endl;
+
+	freqfile.open("freqfile.txt");
+
+	if(freqfile.is_open()) {
+		for(int i = 0; i < size; i++) {
+			freqfile << sequence[i] << " " << frequency[i] << endl; 
+		}
+		freqfile << "End of writeFreq" << endl;
+	}
+	else
+	{
+		cout << "Error! File not open.\n" << endl;
+	}
+	
+	freqfile.close();
+}
+
+void readFreq(vector<string> &sequence, vector<int> &frequency) {
+	ifstream freqfile;
+	string line = "";
+	string move_sequence = "";
+	string freq = "";
+
+	freqfile.open("freqfile.txt");
+	
+	if(freqfile.is_open()) 
+	{
+		while(getline(freqfile, line)) 
+		{
+			for(string::iterator it = line.begin(); it != line.end(); ++it) 
+			{
+				if(*it >= 'A' && *it <= 'Z') {
+					move_sequence += *it;
+				}
+				else if (*it >= '0' && *it <= '9') {
+					freq += *it;
+				}
+			}
+			sequence.push_back(move_sequence); // Store history of past N moves (N=5 in this case)
+			frequency.push_back(stoi(freq)); // Store frequency of sequence history[i] at frequency[i]
+			move_sequence = "";
+			freq = "";
+		}
+		cout << "Finished reading frequency file!\n" << endl; // DEBUG
+	}
+	else {
+		cout << "Error! File not open.\n" << endl;
+	}
+
+	freqfile.close();
 }
