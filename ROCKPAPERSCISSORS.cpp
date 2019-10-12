@@ -14,6 +14,7 @@
 #include "Human.h"
 #include "Round.h"
 #include <vector>
+#include "Chooser.h"
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
@@ -28,18 +29,28 @@ void readFreq(vector<string> &sequence, vector<int> &frequency);
 
 int main(int argc, char *argv[]) {
 	
+	RandomChooser Random;
+    	MachineLearningChooser ML;
+    
+    	Random.setChoice(1);
+   	ML.setChoice(2);
+	
 	vector<string> moveSequence; // vector of strings to hold past move sequences
 	vector<int> freq; // vector of ints to hold frequencies of each sequence
 
 	// Read in sequences and their frequencies from the text file
 	readFreq(moveSequence, freq);
-
-	if (argc == 1) {
+	
+	cout << "Press 1 to start the game." << endl;
+        cin >> argc;
+	if (argc == 2) {
 		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
 	}
-	else if (argc == 2) {
-		string arg = argv[1];
-
+	else if (argc == 1) {
+		string arg;
+		cout << "Type -r for random. Type -m for machine learning." <<endl;
+                cin >> arg;
+		
 		if (arg == "-r") {
 			cout << "Computer utilizing random algorithm!" << endl;
 			RockPaperScissor();
