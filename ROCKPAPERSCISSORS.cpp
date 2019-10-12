@@ -10,7 +10,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string>
-#include "Computer.h"
+// #include "Computer.h"
 #include "Human.h"
 #include "Round.h"
 #include <vector>
@@ -30,9 +30,9 @@ void readFreq(vector<string> &sequence, vector<int> &frequency);
 int main(int argc, char *argv[]) {
 	
 	RandomChooser Random;
-    	MachineLearningChooser ML;
+    MachineLearningChooser ML;
     
-    	Random.setChoice(1);
+    Random.setChoice(1);
    	ML.setChoice(2);
 	
 	vector<string> moveSequence; // vector of strings to hold past move sequences
@@ -42,14 +42,16 @@ int main(int argc, char *argv[]) {
 	readFreq(moveSequence, freq);
 	
 	cout << "Press 1 to start the game." << endl;
-        cin >> argc;
-	if (argc == 2) {
-		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
-	}
-	else if (argc == 1) {
+    cin >> argc;
+	
+	// if (argc == 2) {
+	// 	cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
+	// }
+	// else 
+	if (argc == 1) {
 		string arg;
 		cout << "Type -r for random. Type -m for machine learning." <<endl;
-                cin >> arg;
+        cin >> arg;
 		
 		if (arg == "-r") {
 			cout << "Computer utilizing random algorithm!" << endl;
@@ -63,8 +65,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	else {
-		cout << "Invalid number of command line arguments. Please try again." << endl;
-		cout << "Valid arguments are \"r\" for random, \"m\" for ML." << endl;
+		cout << "Invalid selection. Please try again." << endl;
+		// cout << "Press 1 to start the game." << endl;
 	}
 
 	return 0;
