@@ -31,7 +31,7 @@ wxEND_EVENT_TABLE()
 wxIMPLEMENT_APP(MyApp);
 bool MyApp::OnInit()
 {
-    MyFrame *frame = new MyFrame( "Hello World", wxPoint(50, 50), wxSize(450, 340) );
+    MyFrame *frame = new MyFrame( "Hello World", wxPoint(100, 100), wxSize(800, 600) );
     frame->Show( true );
     return true;
 }
@@ -41,12 +41,16 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
+    
     menuFile->AppendSeparator();
+            
     menuFile->Append(wxID_EXIT);
+            
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
+            
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( menuFile, "&File" );
+    menuBar->Append( menuFile, "&Options" );
     menuBar->Append( menuHelp, "&Help" );
     SetMenuBar( menuBar );
     CreateStatusBar();
@@ -58,8 +62,8 @@ void MyFrame::OnExit(wxCommandEvent& event)
 }
 void MyFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox( "This is a wxWidgets' Hello world sample",
-                  "About Hello World", wxOK | wxICON_INFORMATION );
+    wxMessageBox( "This is Team Makaroni's RPS",
+                  "About RPS Game", wxOK | wxICON_INFORMATION );
 }
 void MyFrame::OnHello(wxCommandEvent& event)
 {
