@@ -14,17 +14,18 @@ class MyFrame: public wxFrame
 public:
     MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 private:
-    void OnHello(wxCommandEvent& event);
+    void NewGame(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
     wxDECLARE_EVENT_TABLE();
 };
 enum
 {
-    ID_Hello = 1
+    ID_NewGame = 1
+        
 };
 wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
-    EVT_MENU(ID_Hello,   MyFrame::OnHello)
+    EVT_MENU(ID_NewGame,   MyFrame::NewGame)
     EVT_MENU(wxID_EXIT,  MyFrame::OnExit)
     EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)
 wxEND_EVENT_TABLE()
@@ -39,12 +40,14 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
         : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
+    menuFile->Append(ID_NewGame, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
-    
+    menuFile->Append(wxID_EXIT, "&xit\tCtrl-X",
+                     "Quit RPS game");
+            
     menuFile->AppendSeparator();
             
-    menuFile->Append(wxID_EXIT);
+   // menuFile->Append(wxID_EXIT);
             
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
@@ -65,7 +68,7 @@ void MyFrame::OnAbout(wxCommandEvent& event)
     wxMessageBox( "This is Team Makaroni's RPS",
                   "About RPS Game", wxOK | wxICON_INFORMATION );
 }
-void MyFrame::OnHello(wxCommandEvent& event)
+void MyFrame::NewGame(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");
 }
