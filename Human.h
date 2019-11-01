@@ -1,3 +1,6 @@
+#ifndef HUMAN_H
+#define HUMAN_H
+
 #include <iostream>
 #include "Player.h"
 
@@ -6,7 +9,7 @@ class Human : public Player {
         // Default constructor
         Human() {}
 
-        void setMove() {
+        void setMove_rand() {
             
             int move = 0;
             
@@ -28,3 +31,6 @@ class Human : public Player {
         ~Human() {};
     private:
 };
+
+#endif /* HUMAN_H */
+
