@@ -45,12 +45,18 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_NewGame, "&New Game...\tCtrl-H",
                      "Start a new game!");
+    menuFile->Append(wxID_EXIT, "&xit\tCtrl-X",
+                     "Quit RPS game");
+        
     menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
+            
+   // menuFile->Append(wxID_EXIT);
+            
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
+            
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( menuFile, "&File" );
+    menuBar->Append( menuFile, "&Options" );
     menuBar->Append( menuHelp, "&Help" );
     SetMenuBar( menuBar );
     CreateStatusBar();

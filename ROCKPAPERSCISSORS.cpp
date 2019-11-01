@@ -5,16 +5,17 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
 #include <string>
-// #include "Computer.h"
+#include <queue>
+#include <map>
+#include "Computer.h"
 #include "Human.h"
 #include "Round.h"
-#include <vector>
 #include "Chooser.h"
+#include <vector>
 using namespace std;
 
 enum move {Paper, Scissors, Rock};
@@ -22,57 +23,61 @@ enum move {Paper, Scissors, Rock};
 string convert(int move);
 void scoreBoard(string winner, int* position);
 void printScoreBoard(int* arr, int size);
-void RockPaperScissor();
-// void RockPaperScissor(char mode); TODO: add mode parameter
+void r_RockPaperScissor();
+void ml_RockPaperScissor();
+string getValue();
+string getString(queue<char> q);
+
+
 void writeFreq(const vector<string> &sequence, const vector<int> &frequency);
 void readFreq(vector<string> &sequence, vector<int> &frequency);
 
 int main(int argc, char *argv[]) {
-	
-	RandomChooser Random;
+  
+    RandomChooser Random;
     MachineLearningChooser ML;
     
     Random.setChoice(1);
-   	ML.setChoice(2);
-	
+    ML.setChoice(2);
+    
 	vector<string> moveSequence; // vector of strings to hold past move sequences
 	vector<int> freq; // vector of ints to hold frequencies of each sequence
 
-	// Read in sequences and their frequencies from the text file
-	readFreq(moveSequence, freq);
-	
-	cout << "Press 1 to start the game." << endl;
-    cin >> argc;
-	
-	// if (argc == 2) {
-	// 	cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
-	// }
-	// else 
-	if (argc == 1) {
-		string arg;
-		cout << "Type -r for random. Type -m for machine learning." <<endl;
-        cin >> arg;
-		
+	//Read in sequences and their frequencies from the text file
+	//readFreq(moveSequence, freq);
+
+        cout << "Press 1 to start interface" << endl;
+        cin >> argc;
+	if (argc == 2) {
+		cout << "RockPaperScissors requires one command line argument (\"-r\" for random, \"-m\" for ML)." << endl;
+	}
+        
+	else if (argc == 1) {
+                string arg;
+                cout << "Type -r for random. Type -m for machine learning." <<endl;
+                cin >> arg;
+                
 		if (arg == "-r") {
-			cout << "Computer utilizing random algorithm!" << endl;
-			RockPaperScissor();
+			cout << "Computer to utilizing random algorithm!" << endl;
+			r_RockPaperScissor();
 		}
 		else if (arg == "-m") {
-			cout << "Computer utilizing machine learning algorithm!" << endl;
+			cout << "Computer to utilizing machine learning algorithm!" << endl;
+                        ml_RockPaperScissor();
 		}
 		else {
 			cout << "Invalid argument. Valid arguments are \"r\" for random, \"m\" for ML." << endl;
 		}
+                return 0;
 	}
 	else {
-		cout << "Invalid selection. Please try again." << endl;
-		// cout << "Press 1 to start the game." << endl;
+		cout << "Invalid number of command line arguments. Please try again." << endl;
+		cout << "Valid arguments are \"r\" for random, \"m\" for ML." << endl;
 	}
-
-	return 0;
+        return 0;
 }
 
-void RockPaperScissor() {
+void r_RockPaperScissor() {
 
 	// TODO: Implement different computer player depending on game mode selected (random or ML)
 
@@ -85,12 +90,66 @@ void RockPaperScissor() {
 
 	for (int i = 0; i < 20; i++) {
 		cout << "Round #" << i + 1 << endl;
-		player->setMove();
-		computer->setMove();
+		player->setMove_rand();
+		computer->setMove_rand();
 		cout << "You played [" << convert(player->getMove()) << "]" << endl;
 		cout << "The computer played [" << convert(computer->getMove()) << "]" << endl;
 		newRound->setWinner(newRound->detWinner(player->getMove(), computer->getMove()));
 		cout << "The winner is [" << newRound->getWinner() << "]" << endl << endl;
+		scoreBoard(newRound->getWinner(), track);
+		printScoreBoard(track, 3);
+	}
+}
+
+void ml_RockPaperScissor()
+{
+
+	Human *player = new Human();
+	Computer *computer = new Computer();
+	Round *newRound = new Round();
+	int n = 5;
+	// Choices
+	queue<char> choices;
+	// Map
+	map<string, int> m;
+	// Scoreboard
+	int track[3] = {0};
+
+	for (int i = 0; i < 20; i++)
+	{
+		cout << "Round #" << i + 1 << endl;
+		player->setMove_rand();
+		computer->setParams(getString(choices), m);
+		computer->setMove();
+		cout << "You played [" << convert(player->getMove()) << "]" << endl;
+		cout << "The computer played [" << convert(computer->getMove()) << "]" << endl;
+		if (choices.size() >= 5)
+		{
+			choices.pop();
+		}
+		choices.push(player->getMove()); //push player move
+		if (choices.size() >= 5)
+		{
+			choices.pop();
+		}
+		choices.push(computer->getMove());
+		if (choices.size() == 5)
+		{
+			string s = getString(choices);
+			if (m.find(s) == m.end())
+			{
+				// not found
+				m[s] = 1;
+			}
+			else
+			{
+				// found
+				m[s] = m[s] + 1;
+			}
+		}
+		newRound->setWinner(newRound->detWinner(player->getMove(), computer->getMove()));
+		cout << "The winner is [" << newRound->getWinner() << "]" << endl
+			 << endl;
 		scoreBoard(newRound->getWinner(), track);
 		printScoreBoard(track, 3);
 	}
@@ -114,7 +173,6 @@ void scoreBoard(string winner, int* position){
 	else {
 		position[2]++;
 	}
-
 }
 
 string convert(int move){
@@ -135,6 +193,17 @@ string convert(int move){
 	return item;
 }
 
+string getString(queue<char> q)
+{
+	string s;
+	queue<char> temp = q;
+	while (!temp.empty())
+	{
+		s += temp.front();
+		temp.pop();
+	}
+	return s;
+}
 void writeFreq(const vector<string> &sequence, const vector<int> &frequency) {
 	ofstream freqfile;
 

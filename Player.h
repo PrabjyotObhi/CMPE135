@@ -14,7 +14,7 @@ class Player{
             m_score = score; 
         }
 
-        virtual void setMove() = 0;
+        virtual void setMove_rand() = 0;
 
         // Getters
         int getScore() {
