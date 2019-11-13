@@ -3,6 +3,7 @@
 
 #include "ButtonDemo.h"
 #include "Choice.h"
+#include "RPS.cpp"
 
 /**
  * The button panel of the application frame.
@@ -38,7 +39,9 @@ public:
     void on_scissors(wxCommandEvent& event);
 
 private:
+    RPS roshambo;
     wxStaticText *button_chosen_text;
+    wxStaticText *computer_chosen_text;
 
     /**
      * Initialize the panel contents.
@@ -50,6 +53,7 @@ private:
      * @param choice the chosen object.
      */
     void update_button_choice_text(const Choice choice);
+    void update_computer_choice_text(const Choice choice);
 };
 
 #endif /* BUTTONPANEL_H_ */

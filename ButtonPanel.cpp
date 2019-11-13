@@ -1,7 +1,11 @@
 #include "ButtonPanel.h"
+// #include "RPS.cpp"
 
 void ButtonPanel::init()
 {
+
+    // roshambo.r_RockPaperScissor();
+
     wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
     wxPanel *round_panel = new wxPanel(this, wxID_ANY);
@@ -60,12 +64,15 @@ void ButtonPanel::init()
     chosen_panel->SetSizer(chosen_sizer);
 
     wxPanel *computer_panel = new wxPanel(this, wxID_ANY);
-    wxSizer *computer_sizer = new wxGridSizer(wxHORIZONTAL);
-    wxStaticText *computer_text = new wxStaticText(computer_panel, wxID_ANY, "Computer");
+    wxSizer *computer_sizer = new wxGridSizer(2, 0, 5);
+
+    wxStaticText *computer_text = new wxStaticText(computer_panel, wxID_ANY, "Computer chooses:");
+    computer_chosen_text = new wxStaticText(computer_panel, wxID_ANY, "");
     computer_text->SetFont(computer_text->GetFont().Larger());
     
-    computer_sizer->Add(computer_text, 0, 0, 0);
-    computer_sizer->AddSpacer(5);
+    computer_sizer->Add(computer_text, 0, wxALIGN_RIGHT, 0);
+    computer_sizer->Add(computer_chosen_text, 0, 0, 0);
+    // computer_sizer->AddSpacer(5);
     computer_panel->SetSizer(computer_sizer);
 
     wxPanel *human_choice_panel = new wxPanel(this,wxID_ANY);
@@ -129,6 +136,9 @@ void ButtonPanel::init()
 void ButtonPanel::on_rock(wxCommandEvent& event)
 {
     update_button_choice_text(ROCK);
+    roshambo.playRound(ROCK);
+    update_computer_choice_text(roshambo.getComputerChoice());
+    
 }
 
 void ButtonPanel::on_paper(wxCommandEvent& event)
@@ -144,4 +154,10 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
 void ButtonPanel::update_button_choice_text(const Choice choice)
 {
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
+    
+}
+
+void ButtonPanel::update_computer_choice_text(const Choice choice)
+{
+    computer_chosen_text->SetLabelText(choice_to_wxString(choice));
 }
