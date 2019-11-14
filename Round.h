@@ -18,10 +18,10 @@ class Round {
                 winner = "Computer";
             }
             else if (playerMove == 1 && computerMove ==3){
-                winner = "Player";
+                winner = "Human";
             }
             else if (playerMove ==2 && computerMove == 1){
-                winner = "Player";
+                winner = "Human";
             }
             else if (playerMove ==2 && computerMove == 3){
                 winner = "Computer";
@@ -30,7 +30,7 @@ class Round {
                 winner = "Computer";
             }
             else if (playerMove == 3 && computerMove == 2){
-                winner = "Player";
+                winner = "Human";
             }
             return winner;
         }
@@ -45,6 +45,9 @@ class Round {
             m_winner = winner;
         }
 
+        ~Round() {
+            cout << "deleting round object...\n";
+        }
 
     private:
         std::string m_winner;

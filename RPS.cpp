@@ -15,6 +15,7 @@
 #include "Human.h"
 #include "Round.h"
 #include "Chooser.h"
+#include "Scoreboard.h"
 #include <vector>
 using namespace std;
 
@@ -49,9 +50,10 @@ class RPS {
             }
         }
 
-        void playRound(int move) {
+        string playRound(int move) {
             Computer *computer = new Computer();
             Round *newRound = new Round();
+            string winner = "";
 
             round++;
             computer->setMove_rand();
@@ -61,6 +63,35 @@ class RPS {
             cout << "Computer move was " << computer_choice << endl;
 
             scoreBoard(newRound->getWinner(), track);
+            
+            if(newRound->getWinner() == "Human") {
+                score.setScore(HUMAN);
+                cout << "Human won!\n";
+            }
+            else if(newRound->getWinner() == "Computer") {
+                score.setScore(COMPUTER);
+                cout << "Computer won!\n";
+            }
+            else if(newRound->getWinner() == "Tie") {
+                score.setScore(TIE);
+                cout << "Tie!\n";
+            }
+
+            winner = newRound->getWinner();
+
+            delete newRound;
+            delete computer;
+
+            return winner;
+        }
+
+        int getRound() {
+            cout << "round = " << round << endl;
+            return round;
+        }
+
+        int getPlayerScore(int player) {
+            return score.getScore(player);
         }
 
         void printScoreBoard(int* arr, int size) {
@@ -123,6 +154,8 @@ class RPS {
         int track[3] = {0};
         int round = 0;
         int computer_choice;
+        Scoreboard score;
+
 };
   
     // RandomChooser Random;
