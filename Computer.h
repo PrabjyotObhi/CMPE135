@@ -95,12 +95,13 @@ class Computer : public Player {
 
     int getMove()
     {
-
         return m_move;
     }
         
         // Destructor
-        ~Computer() {};
+        ~Computer() {
+            cout << "deleting computer object...\n";
+        };
     private:
 };
 

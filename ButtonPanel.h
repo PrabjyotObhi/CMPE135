@@ -3,6 +3,7 @@
 
 #include "ButtonDemo.h"
 #include "Choice.h"
+#include "RPS.cpp"
 
 /**
  * The button panel of the application frame.
@@ -16,6 +17,7 @@ public:
      */
     ButtonPanel(wxFrame *parent) : wxPanel(parent, wxID_ANY)
     {
+        roshambo = new RPS();
         init();
     }
 
@@ -37,8 +39,19 @@ public:
      */
     void on_scissors(wxCommandEvent& event);
 
+    ~ButtonPanel () {
+        delete roshambo;
+        cout << "deleting rps...\n";
+    }
 private:
+    RPS *roshambo;
+    wxStaticText *round_count_text;
     wxStaticText *button_chosen_text;
+    wxStaticText *computer_chosen_text;
+    wxStaticText *winner_result_text;
+    wxStaticText *human_win_text;
+    wxStaticText *computer_win_text;
+    wxStaticText *tie_count_text;
 
     /**
      * Initialize the panel contents.
@@ -50,6 +63,10 @@ private:
      * @param choice the chosen object.
      */
     void update_button_choice_text(const Choice choice);
+    void update_computer_choice_text(const Choice choice);
+    void update_winner_result_text(const std::string winner);
+    void update_scoreboard();
+    void update_round();
 };
 
 #endif /* BUTTONPANEL_H_ */

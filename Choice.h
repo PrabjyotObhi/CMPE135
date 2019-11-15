@@ -6,11 +6,13 @@
     #include <wx/wx.h>
 #endif
 
+#include <string>
+
 // Choice represented by int.
 typedef int Choice;
 
 // Which object a player chooses each round.
-enum { ROCK, PAPER, SCISSORS, NONE };
+enum { NONE, ROCK, PAPER, SCISSORS };
 
 /**
  * Convert a chosen object to a wxString.
@@ -18,5 +20,13 @@ enum { ROCK, PAPER, SCISSORS, NONE };
  * @return the wxString.
  */
 wxString choice_to_wxString(Choice choice);
+
+std::string choice_to_String(Choice choice);
+
+wxString string_to_wxString(std::string str);
+
+wxString int_to_wxString(int score);
+
+// wxString string_to_wxString(string str);
 
 #endif /* CHOICE_H_ */
