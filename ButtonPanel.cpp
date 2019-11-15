@@ -11,16 +11,27 @@ void ButtonPanel::init()
 
     wxPanel *round_panel = new wxPanel(this, wxID_ANY);
     wxSizer *round_sizer = new wxBoxSizer(wxHORIZONTAL);
-    wxStaticText *round_text = new wxStaticText(round_panel, wxID_ANY, "Round: ");
+    wxStaticText *round_text = new wxStaticText(round_panel, wxID_ANY, "Round:");
     round_text->SetFont(round_text->GetFont().Larger());
 
-    round_count_text = new wxStaticText(round_panel, wxID_ANY, "");
-
-
     round_sizer->Add(round_text, 0, wxALIGN_RIGHT, 0);
-    round_sizer->Add(round_count_text, 0, 0, 0);
+    
     // round_sizer->AddSpacer(5);
-    round_panel->SetSizer(round_sizer);    
+        
+
+    // wxPanel *round_count_panel = new wxPanel(this, wxID_ANY);
+    // wxSizer *round_count_sizer = new wxBoxSizer(wxHORIZONTAL);
+    round_sizer->AddSpacer(10);
+    round_count_text = new wxStaticText(round_panel, wxID_ANY, "");
+    round_count_text->SetFont(round_count_text->GetFont().Larger());
+    round_sizer->Add(round_count_text, 0, 0, 0);
+    round_sizer->AddSpacer(10);
+    // round_count_sizer->AddSpacer(10);
+    // round_count_sizer->Add(round_count_text, 0, 0, 0);
+    // round_count_sizer->AddSpacer(10);
+    // round_count_panel->SetSizer(round_count_sizer);
+
+    round_panel->SetSizer(round_sizer);
 
     wxPanel *human_panel = new wxPanel(this, wxID_ANY);
     wxSizer *human_sizer = new wxBoxSizer(wxHORIZONTAL);
@@ -136,6 +147,8 @@ void ButtonPanel::init()
 
     sizer->Add(round_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
+    // sizer->Add(round_count_panel, 0, wxALIGN_CENTER, 0);
+    // sizer->AddSpacer(20);
     sizer->Add(human_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
     sizer->Add(button_panel, 0, wxALIGN_CENTER, 0);
@@ -159,35 +172,49 @@ void ButtonPanel::init()
 
 void ButtonPanel::on_rock(wxCommandEvent& event)
 {
-    
-    update_button_choice_text(ROCK);
-    update_winner_result_text(roshambo->playRound(ROCK));
-    update_round();
-    // std::cout << roshambo->playRound(ROCK) << std::endl;
-    update_computer_choice_text(roshambo->getComputerChoice());
-    update_scoreboard();
-    cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
-    
+    if(roshambo->getRound() < 20) {
+        update_button_choice_text(ROCK);
+        update_winner_result_text(roshambo->playRound(ROCK));
+        
+        // std::cout << roshambo->playRound(ROCK) << std::endl;
+        update_computer_choice_text(roshambo->getComputerChoice());
+        update_round();
+        update_scoreboard();
+        cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
+    }
+    else {
+        cout << "End of game!\n" << endl;
+    }    
 }
 
 void ButtonPanel::on_paper(wxCommandEvent& event)
 {
-    update_round();
-    update_button_choice_text(PAPER);
-    update_winner_result_text(roshambo->playRound(PAPER));
-    update_computer_choice_text(roshambo->getComputerChoice());
-    update_scoreboard();
-    cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
+    if(roshambo->getRound() < 20) {
+        update_button_choice_text(PAPER);
+        update_winner_result_text(roshambo->playRound(PAPER));
+        update_computer_choice_text(roshambo->getComputerChoice());
+        update_round();
+        update_scoreboard();
+        cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
+    }
+    else {
+        cout << "End of game!\n" << endl;
+    }
 }
 
 void ButtonPanel::on_scissors(wxCommandEvent& event)
 {
-    update_round();
-    update_button_choice_text(SCISSORS);
-    update_winner_result_text(roshambo->playRound(SCISSORS));
-    update_computer_choice_text(roshambo->getComputerChoice());
-    update_scoreboard();
-    cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
+    if(roshambo->getRound() < 20) {
+        update_button_choice_text(SCISSORS);
+        update_winner_result_text(roshambo->playRound(SCISSORS));
+        update_computer_choice_text(roshambo->getComputerChoice());
+        update_round();
+        update_scoreboard();
+        cout << roshambo->getPlayerScore(0) << " " << roshambo->getPlayerScore(1) << " " << roshambo->getPlayerScore(2) << endl;
+    }
+    else {
+        cout << "End of game!\n" << endl;
+    }
 }
 
 void ButtonPanel::update_button_choice_text(const Choice choice)
@@ -215,5 +242,7 @@ void ButtonPanel::update_scoreboard()
 
 void ButtonPanel::update_round()
 {
+    cout << "Updating round to " << roshambo->getRound() << endl;
     round_count_text->SetLabelText(int_to_wxString(roshambo->getRound()));
+    // round_count_text->SetLabelText(string_to_wxString(to_string(roshambo->getRound())));
 }

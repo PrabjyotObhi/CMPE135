@@ -27,6 +27,7 @@ class RPS {
 
         RPS() {
             computer_choice = 0;
+            m_round = 0;
         }
 
         void r_RockPaperScissor() {
@@ -55,7 +56,7 @@ class RPS {
             Round *newRound = new Round();
             string winner = "";
 
-            round++;
+            m_round++;
             computer->setMove_rand();
             newRound->setWinner(newRound->detWinner(move, computer->getMove()));
             computer_choice = computer->getMove();
@@ -86,8 +87,8 @@ class RPS {
         }
 
         int getRound() {
-            cout << "round = " << round << endl;
-            return round;
+            cout << "round = " << m_round << endl;
+            return m_round;
         }
 
         int getPlayerScore(int player) {
@@ -152,7 +153,7 @@ class RPS {
     protected:
     private:
         int track[3] = {0};
-        int round = 0;
+        int m_round;
         int computer_choice;
         Scoreboard score;
 
