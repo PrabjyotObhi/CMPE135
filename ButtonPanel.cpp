@@ -21,11 +21,11 @@ void ButtonPanel::init()
 
     // wxPanel *round_count_panel = new wxPanel(this, wxID_ANY);
     // wxSizer *round_count_sizer = new wxBoxSizer(wxHORIZONTAL);
-    round_sizer->AddSpacer(10);
+    round_sizer->AddSpacer(20);
     round_count_text = new wxStaticText(round_panel, wxID_ANY, "");
     round_count_text->SetFont(round_count_text->GetFont().Larger());
     round_sizer->Add(round_count_text, 0, 0, 0);
-    round_sizer->AddSpacer(10);
+    round_sizer->AddSpacer(20);
     // round_count_sizer->AddSpacer(10);
     // round_count_sizer->Add(round_count_text, 0, 0, 0);
     // round_count_sizer->AddSpacer(10);
@@ -73,6 +73,7 @@ void ButtonPanel::init()
 
     wxStaticText *chosen_text = new wxStaticText(chosen_panel, wxID_ANY,
                                                     "Human chooses:");
+    chosen_text->SetFont(chosen_text->GetFont().Larger());
     button_chosen_text = new wxStaticText(chosen_panel, wxID_ANY, "");
     button_chosen_text->SetFont(button_chosen_text->GetFont().Larger());
     chosen_sizer->Add(chosen_text, 0, wxALIGN_RIGHT, 0);
@@ -85,7 +86,7 @@ void ButtonPanel::init()
     wxStaticText *computer_text = new wxStaticText(computer_panel, wxID_ANY, "Computer chooses:");
     computer_chosen_text = new wxStaticText(computer_panel, wxID_ANY, "");
     computer_text->SetFont(computer_text->GetFont().Larger());
-    
+    computer_chosen_text->SetFont(computer_chosen_text->GetFont().Larger());
     computer_sizer->Add(computer_text, 0, wxALIGN_RIGHT, 0);
     computer_sizer->Add(computer_chosen_text, 0, 0, 0);
     // computer_sizer->AddSpacer(5);
@@ -113,6 +114,7 @@ void ButtonPanel::init()
     wxStaticText *winner_text = new wxStaticText(winner_panel, wxID_ANY, "The winner: ");
     winner_result_text = new wxStaticText(winner_panel, wxID_ANY, "");
     winner_text->SetFont(winner_text->GetFont().Larger());
+    winner_result_text->SetFont(winner_result_text->GetFont().Larger());
 
     winner_sizer->Add(winner_text, 0, wxALIGN_RIGHT, 0);
     winner_sizer->Add(winner_result_text, 0, 0, 0);

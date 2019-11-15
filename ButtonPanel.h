@@ -21,6 +21,16 @@ public:
         init();
     }
 
+    void new_game() {
+        delete roshambo;
+        roshambo = new RPS;
+        update_button_choice_text(0);
+        update_computer_choice_text(0);
+        update_winner_result_text("");
+        update_scoreboard();
+        update_round();
+    }
+
     /**
      * Event handler for the rock button.
      * @param event the button click event.

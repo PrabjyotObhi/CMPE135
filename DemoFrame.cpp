@@ -2,6 +2,7 @@
 
 // The event table.
 wxBEGIN_EVENT_TABLE(DemoFrame, wxFrame)
+    EVT_MENU(RPS_New_Game, DemoFrame::on_new_game)
     EVT_MENU(RPS_Quit,  DemoFrame::on_quit)
     EVT_MENU(RPS_About, DemoFrame::on_about)
 wxEND_EVENT_TABLE()
@@ -36,8 +37,9 @@ void DemoFrame::init()
 void DemoFrame::init_menu_bar()
 {
     wxMenu *fileMenu = new wxMenu;
+    fileMenu->Append(RPS_New_Game, "&New Game\tN", "Start new game");
     fileMenu->Append(RPS_Quit,  "E&xit\tAlt-X", "Quit program");
-
+    
     wxMenu *helpMenu = new wxMenu;
     helpMenu->Append(RPS_About, "&About\tF1",   "Show about dialog");
 
@@ -60,13 +62,15 @@ void DemoFrame::init_sizer()
 void DemoFrame::on_about(wxCommandEvent& WXUNUSED(event))
 {
     wxMessageBox(wxString::Format(
-                    "This is a button demo\n"
+                    "This is a Rock Paper Scissors game\n"
                     "built with %s\n"
-                    "and running under %s.",
+                    "and running under %s.\n"
+                    "Developed by Team MakChickens\n"
+                    "CMPE 135, Fall 2019",
                     wxVERSION_STRING,
                     wxGetOsDescription()
                 ),
-                "About the button demo",
+                "About the RPS game",
                 wxOK | wxICON_INFORMATION,
                 this);
 }
@@ -74,4 +78,9 @@ void DemoFrame::on_about(wxCommandEvent& WXUNUSED(event))
 void DemoFrame::on_quit(wxCommandEvent& WXUNUSED(event))
 {
     Close(true);  // true is to force the frame to close
+}
+
+void DemoFrame::on_new_game(wxCommandEvent& WXUNUSED(event))
+{
+    button_panel->new_game();
 }
