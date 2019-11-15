@@ -176,7 +176,7 @@ void ButtonPanel::on_rock(wxCommandEvent& event)
 {
     if(roshambo->getRound() < 20) {
         update_button_choice_text(ROCK);
-        update_winner_result_text(roshambo->playRound(ROCK));
+        update_winner_result_text(roshambo->playMLRound(ROCK));
         
         // std::cout << roshambo->playRound(ROCK) << std::endl;
         update_computer_choice_text(roshambo->getComputerChoice());
@@ -186,6 +186,7 @@ void ButtonPanel::on_rock(wxCommandEvent& event)
     }
     else {
         cout << "End of game!\n" << endl;
+        new_game();
     }    
 }
 
@@ -193,7 +194,7 @@ void ButtonPanel::on_paper(wxCommandEvent& event)
 {
     if(roshambo->getRound() < 20) {
         update_button_choice_text(PAPER);
-        update_winner_result_text(roshambo->playRound(PAPER));
+        update_winner_result_text(roshambo->playMLRound(PAPER));
         update_computer_choice_text(roshambo->getComputerChoice());
         update_round();
         update_scoreboard();
@@ -201,6 +202,7 @@ void ButtonPanel::on_paper(wxCommandEvent& event)
     }
     else {
         cout << "End of game!\n" << endl;
+        new_game();
     }
 }
 
@@ -208,7 +210,7 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
 {
     if(roshambo->getRound() < 20) {
         update_button_choice_text(SCISSORS);
-        update_winner_result_text(roshambo->playRound(SCISSORS));
+        update_winner_result_text(roshambo->playMLRound(SCISSORS));
         update_computer_choice_text(roshambo->getComputerChoice());
         update_round();
         update_scoreboard();
@@ -216,6 +218,7 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
     }
     else {
         cout << "End of game!\n" << endl;
+        new_game();
     }
 }
 
