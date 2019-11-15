@@ -20,6 +20,8 @@ public:
      */
     virtual ~DemoFrame();
 
+    void on_new_game(wxCommandEvent& event);
+
     /**
      * Event handler for the About menu item.
      * @param event the item selection event.
@@ -57,6 +59,7 @@ private:
 // IDs for the menu commands.
 enum
 {
+    RPS_New_Game = 0,
     RPS_Quit  = wxID_EXIT,
     RPS_About = wxID_ABOUT
 };

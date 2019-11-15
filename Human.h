@@ -27,6 +27,10 @@ class Human : public Player {
             m_move = move;
         }
 
+        void setMove(int move) {
+            m_move = move;
+        }
+
         // Destructor
         ~Human() {};
     private:

@@ -7,12 +7,16 @@
 #include <string>
 #include <vector>
 #include "Player.h"
+#include <sstream>
 using namespace std;
 
 class Computer : public Player {
     public:
         // Default constructor
-        Computer() {}
+        Computer() 
+        {
+            player_prediction = 0;
+        }
 
         void setMove_rand() {
             //generate a random number and mod it with 4 to get the value of the computer move (1 == paper, 2 == scissors, 3 == rock)
@@ -21,88 +25,122 @@ class Computer : public Player {
             while (move == 0){
                 move = rand() % 4;
             }
-            
+                        
             m_move = move;
-        }
+        }    
 
-        map<string, int> m;
-    string currentWindow;
-
-    vector<string> keyToList(map<string, int> m)
-    {
-        vector<string> v;
-        for (map<string, int>::iterator it = m.begin(); it != m.end(); ++it)
+        vector<string> keyToList(map<string, int> m)
         {
-            v.push_back(it->first);
-            cout << it->first << "\n";
-        }
-        return v;
-    }
-
-    void setParams(string currentWindow, map<string, int> m)
-    {
-        this->m = m;
-        this->currentWindow = currentWindow;
-    }
-    void setMove()
-    {
-        //generate a random number and mod it with 4 to get the value of the computer move (1 == paper, 2 == scissors, 3 == rock)
-        string choice = currentWindow.substr(0, 4);
-
-        vector<string> v = keyToList(m);
-        int maxVal = 0;
-        int index = -1;
-        for (int i = 0; i < v.size(); i++)
-        {
-            if (v[i].substr(0, 4) == choice)
+            vector<string> v;
+            for (map<string, int>::iterator it = m.begin(); it != m.end(); ++it)
             {
-                if (m[v[i]] > maxVal)
+                v.push_back(it->first);
+                cout << it->first << "\n";
+            }
+            return v;
+        }
+
+        void setParams(string currentWindow, map<string, int> m)
+        {
+            this->m = m;
+            this->currentWindow = currentWindow;
+        }
+
+        void setMove()
+        {
+            int maxVal = 0;
+            int index = -1;
+            vector<string> v = keyToList(m);
+            
+            if(currentWindow.size() == 5) {
+                cout << "Using ML!\n" << endl;
+            
+                string choice = currentWindow.substr(0, 4);
+
+                cout << "current window = " << currentWindow << endl;
+                cout << "choice = " << choice << endl;
+
+                
+                
+                for (int i = 0; i < v.size(); i++)
                 {
-                    maxVal = m[v[i]];
-                    index = i;
+                    if (v[i].substr(0, 4) == choice)
+                    {
+                        if (m[v[i]] > maxVal)
+                        {
+                            maxVal = m[v[i]];
+                            index = i;
+                        }
+                    }
                 }
             }
-        };
-        if (index > -1)
-        {
-            string playerChoice = v[index].substr(4, 1);
-            if (playerChoice == "\001")
+
+
+            if (index > -1)
             {
-                m_move = 2;
+                // string playerChoice = v[index].substr(4, 1);
+
+                // char c;
+                // c = v[index].substr(4,1);
+                // player_prediction = c - '0';
+
+                stringstream ss;
+
+                ss << v[index].substr(4,1);
+
+                ss >> player_prediction;
+
+                cout << "Player prediction is " << player_prediction << endl;
+
+                // if (playerChoice == "\001")
+                // {
+                //     m_move = 2;
+                // }
+                // else if (playerChoice == "\002")
+                // {
+                //     m_move = 3;
+                // }
+                // else if (playerChoice == "\003")
+                // {
+                //     m_move = 1;
+                // }
+
+                if(player_prediction == 1) m_move = 2;
+                else if(player_prediction == 2) m_move = 3;
+                else if(player_prediction == 3) m_move = 1;
             }
-            else if (playerChoice == "\002")
+            else
             {
-                m_move = 3;
-            }
-            else if (playerChoice == "\003")
-            {
-                m_move = 1;
+                // random
+                int move = rand() % 4;
+
+                while (move == 0)
+                {
+                    move = rand() % 4;
+                }
+
+                m_move = move;
             }
         }
-        else
+
+        int getMove()
         {
-            // random
-            int move = rand() % 4;
-
-            while (move == 0)
-            {
-                move = rand() % 4;
-            }
-
-            m_move = move;
+            return m_move;
         }
-    }
 
-    int getMove()
-    {
-        return m_move;
-    }
+        int getPlayerPrediction()
+        {
+            return player_prediction;
+        }
         
         // Destructor
         ~Computer() {
             cout << "deleting computer object...\n";
         };
     private:
+        map<string, int> m;
+        string currentWindow;
+        int player_prediction;
 };
 
 #endif /* COMPUTER_H */
