@@ -35,7 +35,6 @@ class Computer : public Player {
             for (map<string, int>::iterator it = m.begin(); it != m.end(); ++it)
             {
                 v.push_back(it->first);
-                cout << it->first << "\n";
             }
             return v;
         }
@@ -53,14 +52,8 @@ class Computer : public Player {
             vector<string> v = keyToList(m);
             
             if(currentWindow.size() == 5) {
-                cout << "Using ML!\n" << endl;
             
-                string choice = currentWindow.substr(0, 4);
-
-                cout << "current window = " << currentWindow << endl;
-                cout << "choice = " << choice << endl;
-
-                
+                string choice = currentWindow.substr(0, 4);                
                 
                 for (int i = 0; i < v.size(); i++)
                 {
@@ -78,32 +71,11 @@ class Computer : public Player {
 
             if (index > -1)
             {
-                // string playerChoice = v[index].substr(4, 1);
-
-                // char c;
-                // c = v[index].substr(4,1);
-                // player_prediction = c - '0';
-
                 stringstream ss;
 
                 ss << v[index].substr(4,1);
 
                 ss >> player_prediction;
-
-                cout << "Player prediction is " << player_prediction << endl;
-
-                // if (playerChoice == "\001")
-                // {
-                //     m_move = 2;
-                // }
-                // else if (playerChoice == "\002")
-                // {
-                //     m_move = 3;
-                // }
-                // else if (playerChoice == "\003")
-                // {
-                //     m_move = 1;
-                // }
 
                 if(player_prediction == 1) m_move = 2;
                 else if(player_prediction == 2) m_move = 3;

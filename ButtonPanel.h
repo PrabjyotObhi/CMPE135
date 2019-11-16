@@ -62,6 +62,7 @@ private:
     wxStaticText *human_win_text;
     wxStaticText *computer_win_text;
     wxStaticText *tie_count_text;
+    wxStaticText *human_prediction_text;
 
     /**
      * Initialize the panel contents.
@@ -77,6 +78,7 @@ private:
     void update_winner_result_text(const std::string winner);
     void update_scoreboard();
     void update_round();
+    void update_human_prediction_text(const Choice choice);
 };
 
 #endif /* BUTTONPANEL_H_ */
